@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::resource('invoices', 'InvoicesController');
+    Route::get('InvoicesDetails/{id}', 'InvoicesDetailsController@edit');
     Route::get('section/{id}', 'InvoicesController@getproducts');
     Route::resource('sections', 'SectionsController');
     Route::resource('products', 'ProductsController');

@@ -8,8 +8,8 @@ class invoices extends Model
 {
     //
     protected $guarded = [];
-    // public function section()
-    // {
-    //     return $this->belongsTo('App\Sections');
-    // }
+    public function section()
+    {
+        return $this->belongsTo('App\sections');
+    }
 }

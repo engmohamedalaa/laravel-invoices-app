@@ -61,20 +61,32 @@
 							</tr>
 						</thead>
 						<tbody>
+							@foreach($invoices as $invoice)
+							@php $i=1; @endphp
 							<tr>
-								<td>1</td>
-								<td>123456789</td>
-								<td>2021-09-01</td>
-								<td>2021-10-01</td>
-								<td>CC</td>
-								<td>البنك الاهلي</td>
-								<td>1000</td>
-								<td>10%</td>
-								<td>2500</td>
-								<td>5000</td>
-								<td>غير مدفوعة</td>
-								<td>لم يتم السداد</td>
+								<td>{{$i}}</td>
+								<td>{{$invoice->invoice_number}}</td>
+								<td>{{$invoice->invoice_date}}</td>
+								<td>{{$invoice->due_date}}</td>
+								<td>{{$invoice->product}}</td>
+								<td><a href="{{ url('InvoicesDetails') }}/{{ $invoice->id }}">{{ $invoice->section->section_name }}</a></td>
+								<td>{{$invoice->discount}}</td>
+								<td>{{$invoice->rate_vat}}</td>
+								<td>{{$invoice->value_vat}}</td>
+								<td>{{$invoice->total}}</td>
+								<td>
+									@if ($invoice->Value_Status == 1)
+                      <span class="text-success">{{ $invoice->status }}</span>
+                  @elseif($invoice->Value_Status == 2)
+                      <span class="text-danger">{{ $invoice->status }}</span>
+                  @else
+                      <span class="text-warning">{{ $invoice->status }}</span>
+                  @endif
+								</td>
+								<td>{{$invoice->note}}</td>
 							</tr>
+							@php $i++; @endphp
+							@endforeach
 						</tbody>
 					</table>
 				</div>
