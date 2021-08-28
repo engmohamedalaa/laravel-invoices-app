@@ -1,0 +1,16 @@
+composer create-project --prefer-dist laravel/laravel:^7.0 blog
+php artisan serve
+composer require laravel/ui:^2.4
+npm install
+npm run dev
+php artisan ui vue --auth
+php artisan make:model invoices -mcr
+php artisan migrate
+php artisan make:request StoreBlogPost
+php artisan make:migration add_mobile_no_columns_to_users_table --table=users
+****Steps****
+01. Create MCR with -> php artisan make:model invoices -mcr
+02. Add routes
+03. Add fillable fields in model
+04. Add & Edit views/actions in controller
+05. Set views in resources
