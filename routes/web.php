@@ -28,9 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::get('view_file/{invoice_number}/{file_name}', 'InvoicesDetailsController@open_file');
     Route::get('download_file/{invoice_number}/{file_name}', 'InvoicesDetailsController@get_file');
     Route::post('delete_file', 'InvoicesDetailsController@destroy')->name('delete_file');
-
+    //InvoiceAttachments
     Route::resource('sections', 'SectionsController');
     Route::resource('products', 'ProductsController');
+    Route::resource('InvoiceAttachments', 'InvoicesAttachmentsController');
 });
 // Route::resource('invoices', 'InvoicesController')->middleware('auth');
 // Route::resource('sections', 'SectionsController')->middleware('auth');

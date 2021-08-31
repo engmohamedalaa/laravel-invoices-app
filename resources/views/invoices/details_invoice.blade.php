@@ -165,7 +165,7 @@
                                 <div class="tab-pane" id="tab6">
                                     <!--المرفقات-->
                                     <div class="card card-statistics">
-                                        @can('اضافة مرفق')
+                                        {{-- @can('اضافة مرفق') --}}
                                             <div class="card-body">
                                                 <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
                                                 <h5 class="card-title">اضافة مرفقات</h5>
@@ -186,9 +186,8 @@
                                                         name="uploadedFile">تاكيد</button>
                                                 </form>
                                             </div>
-                                        @endcan
+                                        {{-- @endcan --}}
                                         <br>
-
                                         <div class="table-responsive mt-15">
                                             <table class="table center-aligned-table mb-0 table table-hover"
                                                 style="text-align:center">
