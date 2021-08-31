@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::resource('invoices', 'InvoicesController');
     Route::get('section/{id}', 'InvoicesController@getproducts');
+    Route::get('edit_invoice/{id}', 'InvoicesController@edit');
 
     Route::get('invoices_details/{id}', 'InvoicesDetailsController@edit');
     Route::get('view_file/{invoice_number}/{file_name}', 'InvoicesDetailsController@open_file');
