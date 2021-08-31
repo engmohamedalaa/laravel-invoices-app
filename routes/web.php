@@ -22,8 +22,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::resource('invoices', 'InvoicesController');
-    Route::get('InvoicesDetails/{id}', 'InvoicesDetailsController@edit');
     Route::get('section/{id}', 'InvoicesController@getproducts');
+
+    Route::get('invoices_details/{id}', 'InvoicesDetailsController@edit');
+    Route::get('view_file/{invoice_number}/{file_name}', 'InvoicesDetailsController@open_file');
+    Route::get('download_file/{invoice_number}/{file_name}', 'InvoicesDetailsController@get_file');
+    Route::post('delete_file', 'InvoicesDetailsController@destroy')->name('delete_file');
+
     Route::resource('sections', 'SectionsController');
     Route::resource('products', 'ProductsController');
 });

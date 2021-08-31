@@ -87,8 +87,24 @@ class InvoicesDetailsController extends Controller
      * @param  \App\invoices_details  $invoices_details
      * @return \Illuminate\Http\Response
      */
-    public function destroy(invoices_details $invoices_details)
+    public function destroy(Request $request)
     {
-        //
+        $invoices = invoices_attachments::findOrFail($request->id_file);
+        $invoices->delete();
+        Storage::disk('public_uploads')->delete($request->invoice_number.'/'.$request->file_name);
+        session()->flash('Delete', 'تم حذف المرفق بنجاح.');
+        return back();
+    }
+
+    public function open_file($invoice_number, $file_name)
+    {
+      $files = Storage::disk('public_uploads')->getDriver()->getAdapter()->applyPathPrefix($invoice_number.'/'.$file_name);
+      return response()->file($files);
+    }
+
+    public function get_file($invoice_number, $file_name)
+    {
+      $files = Storage::disk('public_uploads')->getDriver()->getAdapter()->applyPathPrefix($invoice_number.'/'.$file_name);
+      return response()->download($files);
     }
 }
