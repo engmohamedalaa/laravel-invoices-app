@@ -95,12 +95,12 @@
                                 الفاتورة</a>
                         {{-- @endcan --}}
 
-                        @can('حذف الفاتورة')
+                        {{-- @can('حذف الفاتورة') --}}
                             <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
                                 data-toggle="modal" data-target="#delete_invoice"><i
                                     class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
                                 الفاتورة</a>
-                        @endcan
+                        {{-- @endcan --}}
 
                         @can('تغير حالة الدفع')
                             <a class="dropdown-item"
@@ -138,6 +138,34 @@
 	</div>
 	<!--/div-->
 </div>
+
+<!-- حذف الفاتورة -->
+<div class="modal fade" id="delete_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	 aria-hidden="true">
+	 <div class="modal-dialog" role="document">
+			 <div class="modal-content">
+					 <div class="modal-header">
+							 <h5 class="modal-title" id="exampleModalLabel">حذف الفاتورة</h5>
+							 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									 <span aria-hidden="true">&times;</span>
+							 </button>
+							 <form action="{{ route('invoices.destroy', 'test') }}" method="post">
+									 {{ method_field('delete') }}
+									 {{ csrf_field() }}
+					 </div>
+					 <div class="modal-body">
+							 هل انت متاكد من عملية الحذف ؟
+							 <input type="hidden" name="invoice_id" id="invoice_id" value="">
+					 </div>
+					 <div class="modal-footer">
+							 <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+							 <button type="submit" class="btn btn-danger">تاكيد</button>
+					 </div>
+					 </form>
+			 </div>
+	 </div>
+</div>
+
 <!-- row closed -->
 </div>
 <!-- Container closed -->
@@ -164,4 +192,12 @@
 <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+<script>
+$('#delete_invoice').on('show.bs.modal', function(event) {
+    var button     = $(event.relatedTarget)
+    var invoice_id = button.data('invoice_id')
+    var modal      = $(this)
+    modal.find('.modal-body #invoice_id').val(invoice_id);
+})
+</script>
 @endsection
