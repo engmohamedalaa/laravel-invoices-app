@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('invoices', 'InvoicesController');
     Route::get('section/{id}', 'InvoicesController@getproducts');
     Route::get('edit_invoice/{id}', 'InvoicesController@edit');
+    Route::get('show_status/{id}', 'InvoicesController@show')->name('show_status');
+    Route::post('update_status/{id}', 'InvoicesController@update_status')->name('update_status');
 
     Route::get('invoices_details/{id}', 'InvoicesDetailsController@edit');
     Route::get('view_file/{invoice_number}/{file_name}', 'InvoicesDetailsController@open_file');

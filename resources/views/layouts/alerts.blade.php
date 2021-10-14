@@ -30,7 +30,7 @@
   </button>
 </div>
 @endif
-@if ($errors->any())
+@if($errors->any())
 <div class="alert alert-danger alert-dismissable fade show" role="alert">
   <ul>
     @foreach ($errors->all() as $error)
@@ -41,4 +41,14 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
+@endif
+@if(session()->has('status_update'))
+  <script>
+    window.onload = function() {
+        notif({
+            msg: "تم تحديث حالة الدفع بنجاح",
+            type: "success"
+        })
+    }
+  </script>
 @endif

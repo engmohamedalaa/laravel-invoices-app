@@ -102,22 +102,19 @@
                                 الفاتورة</a>
                         {{-- @endcan --}}
 
-                        @can('تغير حالة الدفع')
+                        {{-- @can('تغير حالة الدفع') --}}
                             <a class="dropdown-item"
-                                href="{{ URL::route('Status_show', [$invoice->id]) }}"><i
-                                    class=" text-success fas
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        fa-money-bill"></i>&nbsp;&nbsp;تغير
+                                href="{{ URL::route('show_status', [$invoice->id]) }}"><i
+                                    class=" text-success fas fa-money-bill"></i>&nbsp;&nbsp;تغير
                                 حالة
                                 الدفع</a>
-                        @endcan
-
+                        {{-- @endcan --}}
                         @can('ارشفة الفاتورة')
                             <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
                                 data-toggle="modal" data-target="#Transfer_invoice"><i
                                     class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
                                 الارشيف</a>
                         @endcan
-
                         @can('طباعةالفاتورة')
                             <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
                                     class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
