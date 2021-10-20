@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PhoneAuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('sections', 'SectionsController');
     Route::resource('products', 'ProductsController');
     Route::resource('InvoiceAttachments', 'InvoicesAttachmentsController');
+    Route::get('phone-auth', 'PhoneAuthController@index');
 });
 // Route::resource('invoices', 'InvoicesController')->middleware('auth');
 // Route::resource('sections', 'SectionsController')->middleware('auth');
