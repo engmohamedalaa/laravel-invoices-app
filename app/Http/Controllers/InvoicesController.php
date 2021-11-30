@@ -7,6 +7,7 @@ use App\sections;
 use App\invoices_details;
 use App\invoices_attachments;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -156,20 +157,20 @@ class InvoicesController extends Controller
       $id       = $request->invoice_id;
       $invoices = invoices::where('id', $id)->first();
       $Details  = invoices_attachments::where('invoice_id', $id)->first();
-      //$id_page  = $request->id_page;
-      //if(!$id_page == 2){
-        // if(!empty($Details->invoice_number)) {
-        //    Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);
-        // }
+      $id_page  = $request->id_page;
+      if(!$id_page == 2){
+        if(!empty($Details->invoice_number)) {
+           Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);
+        }
         Storage::disk('public_uploads')->deleteDirectory($Details->invoice_number);
         $invoices->Delete(); //forceDelete -> delete from DB
         session()->flash('Delete', 'تم حذف الفاتورة بنجاح!');
         return redirect('invoices');
-      // }else{
-      //   $invoices->delete();
-      //   session()->flash('archive_invoice');
-      //   return redirect('Archive');
-      // }
+      }else{
+        $invoices->delete();
+        session()->flash('invoice_archive');
+        return redirect('archive');
+      }
     }
 
     public function getproducts($id)
@@ -220,5 +221,23 @@ class InvoicesController extends Controller
       }
       session()->flash('status_update');
       return redirect('/invoices');
+    }
+
+    public function invoices_paid()
+    {
+      $invoices = invoices::where('value_status', 1)->get();
+      return view('invoices.invoices_paid', compact('invoices'));
+    }
+
+    public function invoices_unpaid()
+    {
+      $invoices = invoices::where('value_status', 2)->get();
+      return view('invoices.invoices_unpaid', compact('invoices'));
+    }
+
+    public function invoices_partial()
+    {
+      $invoices = invoices::where('value_status', 3)->get();
+      return view('invoices.invoices_partial', compact('invoices'));
     }
 }

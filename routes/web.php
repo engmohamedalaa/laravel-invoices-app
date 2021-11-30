@@ -22,9 +22,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::resource('invoices', 'InvoicesController');
+    Route::resource('archive', 'InvoiceAchiveController');
+
+    Route::get('invoices_paid', 'InvoicesController@invoices_paid');
+    Route::get('invoices_unpaid', 'InvoicesController@invoices_unpaid');
+    Route::get('invoices_partial', 'InvoicesController@invoices_partial');
+
     Route::get('section/{id}', 'InvoicesController@getproducts');
     Route::get('edit_invoice/{id}', 'InvoicesController@edit');
     Route::get('show_status/{id}', 'InvoicesController@show')->name('show_status');
+
     Route::post('update_status/{id}', 'InvoicesController@update_status')->name('update_status');
 
     Route::get('invoices_details/{id}', 'InvoicesDetailsController@edit');

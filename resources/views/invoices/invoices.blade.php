@@ -10,6 +10,8 @@
 <link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+<!--Internal   Notify -->
+<link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 @endsection
 @section('page-header')
 <!-- breadcrumb -->
@@ -76,9 +78,9 @@
 								<td>{{$invoice->value_vat}}</td>
 								<td>{{$invoice->total}}</td>
 								<td>
-									@if ($invoice->Value_Status == 1)
+									@if ($invoice->value_status == 1)
                       <span class="text-success">{{ $invoice->status }}</span>
-                  @elseif($invoice->Value_Status == 2)
+                  @elseif($invoice->value_status == 2)
                       <span class="text-danger">{{ $invoice->status }}</span>
                   @else
                       <span class="text-warning">{{ $invoice->status }}</span>
@@ -109,12 +111,12 @@
                                 حالة
                                 الدفع</a>
                         {{-- @endcan --}}
-                        @can('ارشفة الفاتورة')
+                        {{-- @can('ارشفة الفاتورة') --}}
                             <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
                                 data-toggle="modal" data-target="#Transfer_invoice"><i
                                     class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
                                 الارشيف</a>
-                        @endcan
+                        {{-- @endcan --}}
                         @can('طباعةالفاتورة')
                             <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
                                     class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
@@ -163,6 +165,34 @@
 	 </div>
 </div>
 
+<!-- ارشيف الفاتورة -->
+<div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+				<div class="modal-content">
+						<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">ارشفة الفاتورة</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+								</button>
+								<form action="{{ route('invoices.destroy', 'test') }}" method="post">
+										{{ method_field('delete') }}
+										{{ csrf_field() }}
+						</div>
+						<div class="modal-body">
+								هل انت متاكد من عملية الارشفة ؟
+								<input type="hidden" name="invoice_id" id="invoice_id" value="">
+								<input type="hidden" name="id_page" id="id_page" value="2">
+
+						</div>
+						<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+								<button type="submit" class="btn btn-success">تاكيد</button>
+						</div>
+						</form>
+				</div>
+		</div>
+</div>
 <!-- row closed -->
 </div>
 <!-- Container closed -->
@@ -170,6 +200,7 @@
 <!-- main-content closed -->
 @endsection
 @section('js')
+<!-- <script src="{{URL::asset('js/app.js')}}"></script> -->
 <!-- Internal Data tables -->
 <script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
@@ -189,6 +220,9 @@
 <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+<!--Internal  Notify js -->
+<script src="{{ URL::asset('assets/plugins/notify/js/notifIt.js') }}"></script>
+<script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
 <script>
 $('#delete_invoice').on('show.bs.modal', function(event) {
     var button     = $(event.relatedTarget)
@@ -196,5 +230,13 @@ $('#delete_invoice').on('show.bs.modal', function(event) {
     var modal      = $(this)
     modal.find('.modal-body #invoice_id').val(invoice_id);
 })
+</script>
+<script>
+		$('#Transfer_invoice').on('show.bs.modal', function(event) {
+				var button = $(event.relatedTarget)
+				var invoice_id = button.data('invoice_id')
+				var modal = $(this)
+				modal.find('.modal-body #invoice_id').val(invoice_id);
+		})
 </script>
 @endsection
