@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use App\invoices;
 use App\sections;
 use App\invoices_details;
@@ -9,6 +9,8 @@ use App\invoices_attachments;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\AddInvoice;
 use Illuminate\Http\Request;
 
 class InvoicesController extends Controller
@@ -89,6 +91,10 @@ class InvoicesController extends Controller
           $imageName = $request->pic->getClientOriginalName();
           $request->pic->move(public_path('uploads/attachments/' . $invoice_number), $imageName);
         }
+
+        //$user = User::first();
+        //$user->notify(new AddInvoice($invoice_id));
+        //Notification::send($user, new AddInvoice($invoice_id));
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
         return back();
     }
