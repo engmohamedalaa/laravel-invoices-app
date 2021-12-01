@@ -27,7 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::get('invoices_paid', 'InvoicesController@invoices_paid');
     Route::get('invoices_unpaid', 'InvoicesController@invoices_unpaid');
     Route::get('invoices_partial', 'InvoicesController@invoices_partial');
+    Route::get('invoices_export', 'InvoicesController@export');
     Route::get('invoice_print/{id}','InvoicesController@invoice_print');
+
 
     Route::get('section/{id}', 'InvoicesController@getproducts');
     Route::get('edit_invoice/{id}', 'InvoicesController@edit');

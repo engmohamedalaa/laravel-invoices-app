@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\AddInvoice;
 use Illuminate\Http\Request;
-
+use App\Notifications\AddInvoice;
+use App\Exports\InvoicesExport;
+use Maatwebsite\Excel\Facades\Excel;
 class InvoicesController extends Controller
 {
     /**
@@ -251,5 +252,10 @@ class InvoicesController extends Controller
     {
       $invoice = invoices::where('id', $id)->first();
       return view('invoices.invoice_print', compact('invoice'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new InvoicesExport, 'invoices.xlsx');
     }
 }

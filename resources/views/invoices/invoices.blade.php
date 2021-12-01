@@ -36,7 +36,9 @@
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
 					<div class="col-sm-6 col-md-4 col-xl-3">
-						<a href="invoices/create" class="modal-effect btn btn-primary btn-block" data-effect="effect-scale">اضافة فاتورة</a>
+						<a href="invoices/create" class="modal-effect btn btn-primary btn-sm" data-effect="effect-scale">اضافة فاتورة</a>
+						<a class="modal-effect btn btn-sm btn-primary" href="{{ url('invoices_export') }}"
+                            style="color:white"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
 					</div>
 					<!-- <h4 class="card-title mg-b-0">Bordered Table</h4>
 					<i class="mdi mdi-dots-horizontal text-gray"></i> -->
