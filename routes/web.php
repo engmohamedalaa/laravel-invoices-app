@@ -46,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', 'ProductsController');
     Route::resource('InvoiceAttachments', 'InvoicesAttachmentsController');
     Route::get('phone-auth', 'PhoneAuthController@index');
+
+    Route::resource('roles','RoleController');
+
+    Route::resource('users','UserController');
 });
 // Route::resource('invoices', 'InvoicesController')->middleware('auth');
 // Route::resource('sections', 'SectionsController')->middleware('auth');
