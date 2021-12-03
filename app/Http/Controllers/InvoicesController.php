@@ -96,6 +96,11 @@ class InvoicesController extends Controller
         //$user = User::first();
         //$user->notify(new AddInvoice($invoice_id));
         //Notification::send($user, new AddInvoice($invoice_id));
+
+        $user     = User::get();
+        $invoices = invoices::latest()->first();
+        Notification::send($user, new \App\Notifications\AddInvoicesNoteTable($invoices));
+
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
         return back();
     }
