@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('invoices_export', 'InvoicesController@export');
     Route::get('invoice_print/{id}','InvoicesController@invoice_print');
 
-
     Route::get('section/{id}', 'InvoicesController@getproducts');
     Route::get('edit_invoice/{id}', 'InvoicesController@edit');
     Route::get('show_status/{id}', 'InvoicesController@show')->name('show_status');
@@ -50,6 +49,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles','RoleController');
 
     Route::resource('users','UserController');
+    //reports start
+    Route::get('invoices_report', 'InvoicesReportController@index');
+    Route::post('invoices_search', 'InvoicesReportController@invoices_search');
+    Route::get('customers_report', 'CustomersReporController@index')->name("customers_report");
+    Route::post('customers_search', 'CustomersReporController@customers_search');
 });
 // Route::resource('invoices', 'InvoicesController')->middleware('auth');
 // Route::resource('sections', 'SectionsController')->middleware('auth');

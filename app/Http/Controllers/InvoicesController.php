@@ -54,7 +54,7 @@ class InvoicesController extends Controller
           'invoice_date'      => $request->invoice_date,
           'due_date'          => $request->due_date,
           'product'           => $request->product,
-          //'section'           => section->section_name,
+          // 'section'           => section->section_name,
           'section_id'        => $request->section_id,
           'amount_collection' => $request->amount_collection,
           'amount_commission' => $request->amount_commission,
