@@ -22,6 +22,7 @@ define('LARAVEL_START', microtime(true));
 */
 
 require __DIR__.'/../vendor/autoload.php';
+//require __DIR__.'/../laravel/vendor/autoload.php'; //at server to organize the project
 
 /*
 |--------------------------------------------------------------------------
