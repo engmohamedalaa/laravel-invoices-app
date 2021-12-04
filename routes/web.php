@@ -54,6 +54,10 @@ Route::middleware('auth')->group(function () {
     Route::post('invoices_search', 'InvoicesReportController@invoices_search');
     Route::get('customers_report', 'CustomersReporController@index')->name("customers_report");
     Route::post('customers_search', 'CustomersReporController@customers_search');
+    //notifications start
+    Route::get('MarkAsRead_all','InvoicesController@MarkAsRead_all')->name('MarkAsRead_all');
+    Route::get('unreadNotifications_count', 'InvoicesController@unreadNotifications_count')->name('unreadNotifications_count');
+    Route::get('unreadNotifications', 'InvoicesController@unreadNotifications')->name('unreadNotifications');
 });
 // Route::resource('invoices', 'InvoicesController')->middleware('auth');
 // Route::resource('sections', 'SectionsController')->middleware('auth');

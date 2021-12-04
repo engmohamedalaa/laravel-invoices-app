@@ -98,6 +98,7 @@ class InvoicesController extends Controller
         //Notification::send($user, new AddInvoice($invoice_id));
 
         $user     = User::get();
+        //$user     = User::find(Auth::user()->id); //send only to current user -> wrong must to all users else the current
         $invoices = invoices::latest()->first();
         Notification::send($user, new \App\Notifications\AddInvoicesNoteTable($invoices));
 
@@ -263,4 +264,26 @@ class InvoicesController extends Controller
     {
         return Excel::download(new InvoicesExport, 'invoices.xlsx');
     }
+
+    public function MarkAsRead_all(Request $request)
+    {
+        $userUnreadNotification= auth()->user()->unreadNotifications;
+        if($userUnreadNotification){
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+    }
+
+    public function unreadNotifications_count()
+    {
+        return auth()->user()->unreadNotifications->count();
+    }
+
+    public function unreadNotifications()
+    {
+      foreach (auth()->user()->unreadNotifications as $notification){
+        return $notification->data['title'];
+      }
+    }
+
 }
